@@ -17,6 +17,9 @@
         <asp:Button ID="Button2" runat="server" Height="24px" Text="Delete" Width="61px" OnClick="Button2_Click" />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <asp:Button ID="Button3" runat="server" Height="24px" Text="Update" Width="61px" OnClick="Button3_Click" />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <asp:Button ID="Button5" runat="server" Height="24px" OnClick="Button5_Click1" Text="Search" Width="61px" />
+&nbsp;
         <br />
         <br />
         <asp:Label ID="Label1" runat="server" Text="TableName:" Visible="False"></asp:Label>
@@ -37,7 +40,7 @@
     
     </div>
         <p>
-            <asp:Label ID="Label2" runat="server" Text="Result : "></asp:Label>
+            <asp:Label ID="Label2" runat="server" Text="Result : " Visible="False"></asp:Label>
         </p>
         <p>
             <asp:Label ID="Label3" runat="server"></asp:Label>
