@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -10,103 +11,117 @@ public partial class _Default : System.Web.UI.Page {
     protected void Page_Load(object sender, EventArgs e) {
 
     }
-    /* Insert */
+    /* Search */
     protected void Button1_Click(object sender, EventArgs e) {
-        Label1.Text = "Table Name";
-        Label4.Text = "Values :( ";
-        Label6.Text = ")";
-        Label1.Visible = true;
-        Label2.Visible = false;
-        Label4.Visible = true;
-        Label5.Visible = false;
-        Label6.Visible = true;
-        TextBox1.Visible = true;
-        TextBox2.Visible = true;
-        TextBox3.Visible = false;
-        Global.act = 1;
-    }
-    /* Delete */
-    protected void Button2_Click(object sender, EventArgs e) {
-        Label1.Text = "Table Name";
-        Label4.Text = "Condition : ";
-        Label1.Visible = true;
-        Label2.Visible = false;
-        Label4.Visible = true;
-        Label5.Visible = false;
-        Label6.Visible = false;
-        TextBox1.Visible = true;
-        TextBox2.Visible = true;
-        TextBox3.Visible = false;
-        Global.act = 2;
+        GlobalVar.act = 1;
+        Label2.Text = "*SELECT : ";
+        Label3.Text = "*FROM   : ";
+        Label4.Text = "WHERE   : ";
+        Label2.Visible = Label3.Visible = Label4.Visible = true;
+        TextBox1.Text = TextBox2.Text = TextBox3.Text = "";
+        TextBox1.Visible = TextBox2.Visible = TextBox3.Visible= true;
+        Label12.Visible = Label13.Visible = Label5.Visible = Label6.Visible = Label8.Visible = Label9.Visible = false;
+        if (GlobalVar.exeution_once == false) CheckBox1.Visible = false;
+        if (GlobalVar.check) Label12.Visible = Label13.Visible = Label11.Visible = true;
     }
     /* Update */
+    protected void Button2_Click(object sender, EventArgs e) {
+        GlobalVar.act = 2;
+        Label2.Text = "*SET       : ";
+        Label3.Text = "*TableName : ";
+        Label4.Text = "WHERE      : ";
+        Label2.Visible = Label3.Visible = Label4.Visible = true;
+        TextBox1.Text = TextBox2.Text = TextBox3.Text = "";
+        TextBox1.Visible = TextBox2.Visible = TextBox3.Visible = true;
+        Label12.Visible = Label13.Visible = Label10.Visible = Label5.Visible = Label6.Visible = Label8.Visible = Label9.Visible = false;
+        if (GlobalVar.exeution_once == false) CheckBox1.Visible = false;
+        if (GlobalVar.check) Label12.Visible = Label13.Visible = Label11.Visible = true;
+    }
+    /* Insert */
     protected void Button3_Click(object sender, EventArgs e) {
-        Label1.Text = "Table Name";
-        Label4.Text = "SET : ";
-        Label1.Visible = true;
-        Label2.Visible = false;
-        Label4.Visible = true;
-        Label5.Visible = true;
-        Label6.Visible = false;
-        TextBox1.Visible = true;
-        TextBox2.Visible = true;
-        TextBox3.Visible = true;
-        Global.act = 3;
-        
+        GlobalVar.act = 3;
+        Label3.Text = "*TableName : ";
+        Label4.Text = "*VALUES    : ";
+        Label3.Visible = Label4.Visible = true;
+        TextBox2.Text = TextBox3.Text = "";
+        TextBox2.Visible = TextBox3.Visible = true;
+        Label12.Visible = Label13.Visible = Label10.Visible = Label2.Visible = Label5.Visible = Label6.Visible = Label8.Visible = Label9.Visible = false;
+        TextBox1.Visible = false;
+        if (GlobalVar.exeution_once == false) CheckBox1.Visible = false;
+        if (GlobalVar.check) Label12.Visible = Label13.Visible = Label11.Visible = true;
+    }
+    /* Delete */
+    protected void Button4_Click(object sender, EventArgs e) {
+        GlobalVar.act = 4;
+        Label3.Text = "*TableName : ";
+        Label4.Text = "WHERE      : ";
+        Label3.Visible = Label4.Visible = true;
+        TextBox2.Text = TextBox3.Text = "";
+        TextBox2.Visible = TextBox3.Visible = true;
+        Label12.Visible = Label13.Visible = Label10.Visible = Label2.Visible = Label5.Visible = Label6.Visible = Label8.Visible = Label9.Visible = false;
+        TextBox1.Visible = false;
+        if (GlobalVar.exeution_once == false) CheckBox1.Visible = false;
+        if (GlobalVar.check) Label12.Visible=Label13.Visible=Label11.Visible = true;
     }
     /* Submit */
-    protected void Button4_Click(object sender, EventArgs e) {
-        Label2.Visible = true;
-        Label3.Text = "";
-        switch (Global.act) {
-            case 1:
-                Global.str = "INSERT INTO "+ TextBox1.Text+" VALUES(" + TextBox2.Text + ")";
+    protected void Button5_Click(object sender, EventArgs e) {
+        GlobalVar.error = false;
+        Label12.Visible = Label13.Visible = Label11.Visible = false;
+        Label6.Text = "";
+        switch (GlobalVar.act) {
+            case 1: //Search
+                if (TextBox1.Text != "" && TextBox2.Text != "") {
+                    GlobalVar.str = "SELECT " + TextBox1.Text + " FROM " + TextBox2.Text;
+                    if (TextBox3.Text != "") GlobalVar.str += " WHERE " + TextBox3.Text;
+                }
+                else GlobalVar.error = true;
                 break;
-            case 2:
-                Global.str = "DELETE FROM " + TextBox1.Text;
-                if (TextBox2.Text != "") Global.str += " WHERE " + TextBox2.Text;
+            case 2: //Update
+                if (TextBox1.Text != "" && TextBox2.Text != "") {
+                    GlobalVar.str = "UPDATE " + TextBox2.Text + " SET " + TextBox1.Text;
+                    if (TextBox3.Text != "") GlobalVar.str += " WHERE " + TextBox3.Text;
+                }
+                else GlobalVar.error = true;
                 break;
-            case 3:
-                Global.str = "UPDATE " + TextBox1.Text + " SET " + TextBox2.Text;
-                if (TextBox3.Text != "") Global.str += " WHERE " + TextBox3.Text;
+            case 3: //Insert
+                if (TextBox2.Text != "" && TextBox3.Text != "") GlobalVar.str = "INSERT INTO " + TextBox2.Text + " VALUES(" + TextBox3.Text + ")";
+                else GlobalVar.error = true;
                 break;
-            case 4:
-                Global.str = "SELECT " + TextBox1.Text + " FROM " + TextBox2.Text;
-                if(TextBox3.Text != "") Global.str += " WHERE " +TextBox3.Text;
+            case 4: //Delete
+                if (TextBox2.Text != "") {
+                    GlobalVar.str = "DELETE FROM " + TextBox2.Text;
+                    if (TextBox3.Text != "") GlobalVar.str += " WHERE "+ TextBox3.Text;
+                }
+                else GlobalVar.error = true;
                 break;
             default:
+                GlobalVar.error = true;
                 break;
         }
-        if (Global.str != "") {
-            try{
-                connectSQL(Global.str);
-                if(Global.act < 4) Label3.Text = "Success <br/>";
+        if (!GlobalVar.error) {
+            try {
+                connectSQL();
+                if(!GlobalVar.error) Label10.Text = "Success! <br/>";
             }
-            catch(InvalidCastException ice){
-                Label3.Text = ice.ToString();
+            catch(InvalidCastException ice) {
+                Label10.Text = "ERROR <br/>" + ice.ToString();
             }
+            Label10.Visible = Label5.Visible = Label6.Visible = true;
         }
-        else Label3.Text = "NO action can be done <br/>";
+        else {
+            Label10.Text = "Please input all * information ! <br/>";
+            Label10.Visible = Label5.Visible = Label6.Visible = true;
+        }
+        CheckBox1.Visible = true;
+        GlobalVar.exeution_once = true;
+        Label11.Text = Label6.Text;
+        Label12.Text = Label8.Text;
+        Label13.Text = Label9.Text;
     }
-    /* Search */
-    protected void Button5_Click1(object sender, EventArgs e) {
-        Global.act = 4;
-        Label1.Visible = true;
-        Label1.Text = "SELECT ";
-        Label4.Visible = true;
-        Label4.Text = "FROM ";
-        Label5.Visible = true;
-        Label5.Text = "WHERE ";
-        Label6.Visible = false;
-        TextBox1.Visible = true;
-        TextBox2.Visible = true;
-        TextBox3.Visible = true;
-    }
-
-    public void connectSQL(string str){
+    /* Connect to sql*/
+    public void connectSQL() {
         // connection string
         string DBName = "DB405530038", Server = "140.123.174.54", Username = "DB405530038", Password = "johnson7511333@yahoo.com.tw";
-        string TableName = TextBox1.Text;
         string strConn = "Data Source = " + Server +
                         "; Initial Catalog = " + DBName +
                         "; User ID = " + Username +
@@ -116,23 +131,54 @@ public partial class _Default : System.Web.UI.Page {
         /* 打開連接 */
         myConn.Open();
         // prepare connection and SQL statement
-        SqlCommand myCommand = new SqlCommand(str, myConn);
+        SqlCommand myCommand = new SqlCommand(GlobalVar.str, myConn);
         try {
             SqlDataReader myDataReader = myCommand.ExecuteReader();
-            while (myDataReader.Read())
-                if (myDataReader["ID"].ToString() != "") {
-                    String text = String.Format("學號: {0}, 姓名: {1}, 系所代碼: {2}", myDataReader["ID"].ToString(), myDataReader["Name"].ToString(), myDataReader["Department"].ToString());
-                    Label3.Text += text+"<br/>";
+            if (GlobalVar.act == 1) {
+                Label8.Text = Label9.Text = Label6.Text = "";
+                Label8.Visible = Label9.Visible = true;
+                List<string> list = new List<string>();
+                List<string> value = new List<string>();
+                using (myDataReader) {
+                    DataTable dt = myDataReader.GetSchemaTable();
+                    foreach (DataRow dr in dt.Rows)
+                        list.Add(dr.Field<string>("ColumnName"));
+                    while (myDataReader.Read())
+                        for (int i = 0; i < list.Count; i++) value.Add(myDataReader[list[i]].ToString());
                 }
-            if(Label3.Text == "") Label3.Text = "No Result ! <br/>";
+                Label8.Text += TextBox2.Text + " Table : ";
+                foreach (string s in list) {
+                    Label9.Text += s + " ";
+                }
+                for (int i = 0,j=0; i < value.Count; i++,j++) {
+                    if (j >= list.Count) {
+                        j = 0;
+                        Label6.Text += "<br/>";
+                    }
+                    Label6.Text += list[j] + " : " + value[i]+ " ";
+                }
+                if (Label6.Text == "" && GlobalVar.act == 1) Label6.Text = "No Result ! <br/>";
+                myDataReader.Close();
+            }
         }
-        catch(InvalidCastException ice) {
-            Label3.Text = ice.ToString();
+        catch (InvalidCastException ice) {
+            Label6.Text = ice.ToString();
+            GlobalVar.error = true;
         }
+        catch (SqlException se) {
+            Label6.Text = se.ToString();
+            GlobalVar.error = true;
+        }
+        myConn.Close();
+    }
+    protected void CheckBox1_CheckedChanged(object sender, EventArgs e) {
+        if (CheckBox1.Checked) GlobalVar.check = true;
+        else GlobalVar.check = false;
     }
 }
 
-public class Global {
-    public static string str = "";
+public class GlobalVar {
     public static int act = 0;
+    public static string str = "";
+    public static bool error = false,check = false,exeution_once = false;
 }
