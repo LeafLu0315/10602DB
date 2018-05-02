@@ -135,7 +135,7 @@ public partial class _Default : System.Web.UI.Page {
             SqlDataReader myDataReader = myCommand.ExecuteReader();
             if (GlobalVar.act == 1) {
                 Label8.Text = Label9.Text = Label6.Text = "";
-                Label8.Visible = Label9.Visible = true;
+                Label8.Visible = Label9.Visible = false;
                 List<string> list = new List<string>();
                 List<string> value = new List<string>();
                 using (myDataReader) {
