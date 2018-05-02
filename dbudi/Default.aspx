@@ -38,7 +38,20 @@
         <br />
         <br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <asp:TextBox ID="TextBox2" runat="server" Visible="False"></asp:TextBox>
+        <asp:DropDownList ID="DropDownList1" runat="server" Visible="False">
+            <asp:ListItem>Info</asp:ListItem>
+            <asp:ListItem>Forum</asp:ListItem>
+            <asp:ListItem>LatestNews</asp:ListItem>
+            <asp:ListItem>Login</asp:ListItem>
+            <asp:ListItem>Material</asp:ListItem>
+            <asp:ListItem>ModifiedPersonalInformation</asp:ListItem>
+            <asp:ListItem>OfficeTime</asp:ListItem>
+            <asp:ListItem>RollCall</asp:ListItem>
+            <asp:ListItem>Score</asp:ListItem>
+            <asp:ListItem Value="SelfTest"></asp:ListItem>
+            <asp:ListItem>TakingCourses</asp:ListItem>
+            <asp:ListItem>TutorInformation</asp:ListItem>
+        </asp:DropDownList>
         <br />
         <br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
