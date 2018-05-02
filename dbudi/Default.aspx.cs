@@ -156,9 +156,9 @@ public partial class _Default : System.Web.UI.Page {
                     }
                     Label6.Text += list[j] + " : " + value[i] + " ";
                 }
-                if (Label6.Text == "" && GlobalVar.act == 1) Label6.Text = "No Result ! <br/>";
                 myDataReader.Close();
             }
+            if (Label6.Text == "") Label6.Text = "No Result ! <br/>";
         }
         catch (InvalidCastException ice) {
             Label6.Text = ice.ToString();
